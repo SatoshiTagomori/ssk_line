@@ -9,11 +9,12 @@ module SskLine
         'https://access.line.me/oauth2/v2.1/authorize?response_type=code&client_id='+ENV['LINEAPI_CHANNEL_ID']+'&redirect_uri='+ENV['LINEAPI_CALLBACK_URL']+'&state='+request.session[:line_csrf]+'&scope=profile%20openid'    
     end
     
+    #最低限の設定がされているかのチェック
     def self.status_check(request,controller,user_class)
        request.flash[:danger]=''
        self.env_key_check(request,'LINEAPI_CHANNEL_ID')
        self.env_key_check(request,'LINEAPI_CALLBACK_URL')
-       self.env_key_check(request,'LINEAPI_CALLBACK_URL')
+       self.env_key_check(request,'LINEAPI_CHANNEL_SECRET')
        self.instance_method_check(request,user_class,:teacher)
        self.instance_method_check(request,user_class,:admin)
        self.instance_method_check(request,user_class,:lineid)
