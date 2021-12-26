@@ -24,16 +24,16 @@ Lineでログインしてもらい、登録してもらった人に何かを教�
 
 
 # Railsでの使用について
-Gemfileに
-gem 'ssk_line'
+Gemfileに  
+`gem 'ssk_line'`  
 を書いておいてbundle installするのは前提として、
 
 実際に使うのは２つのメソッドだけです。
 
 ## SskLine.login_url(request)
-引数としてrequestを入れておきます。そのまま書けば、OKです
-<%= link_to 'lineでログイン' ,SskLine.login_url(request) %>
-という感じです。
+引数としてrequestを入れておきます。そのまま書けば、OKです  
+`<%= link_to 'lineでログイン' ,SskLine.login_url(request) %>`  
+という感じです。  
 ログイン用のURLを取得するだけでなく、セッションにCSRFトークンも入れておきます。
 
 ## SskLine.line_login_process(request,controller,user_model_class)
