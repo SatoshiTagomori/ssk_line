@@ -30,13 +30,13 @@ gem 'ssk_line'
 
 実際に使うのは２つのメソッドだけです。
 
-# SskLine.login_url(request)
+## SskLine.login_url(request)
 引数としてrequestを入れておきます。そのまま書けば、OKです
 <%= link_to 'lineでログイン' ,SskLine.login_url(request) %>
 という感じです。
 ログイン用のURLを取得するだけでなく、セッションにCSRFトークンも入れておきます。
 
-# SskLine.line_login_process(request,controller,user_model_class)
+## SskLine.line_login_process(request,controller,user_model_class)
 リダイレクト先のアクションで使います。
 コントローラー内で使うと思いますので、
 SskLine.line_login_process(request,self,User)
