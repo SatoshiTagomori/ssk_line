@@ -7,20 +7,20 @@ Lineでログインしてもらい、登録してもらった人に何かを教�
 # 環境変数の設定
 環境変数に以下の内容を設定しておく。
 
-LINEAPI_CHANNEL_ID
-LINEAPI_CALLBACK_URL
-LINEAPI_CHANNEL_SECRET
+- LINEAPI_CHANNEL_ID
+- LINEAPI_CALLBACK_URL
+- LINEAPI_CHANNEL_SECRET
 
 これらの仔細はLINE Login APIのコンソール画面から情報を取得できる。
 
 # ユーザーテーブルの作成
 テーブル名（モデル名）は何でも良いです。
 その代わり、下記のカラムが必要になります。
-:teacher => boolean(trueの場合は講師アカウントとみなす）
-:admin => boolean（trueの場合は管理者アカウントとみなす）
-:lineid => string（lineのidが入る）
-:dname => string(lineの表示名が入る）
-:picture =>string（lineの画像URLが入る）
+- :teacher => boolean(trueの場合は講師アカウントとみなす）
+- :admin => boolean（trueの場合は管理者アカウントとみなす）
+- :lineid => string（lineのidが入る）
+- :dname => string(lineの表示名が入る）
+- :picture =>string（lineの画像URLが入る）
 
 
 # Railsでの使用について
@@ -39,21 +39,21 @@ gem 'ssk_line'
 ## SskLine.line_login_process(request,controller,user_model_class)
 リダイレクト先のアクションで使います。
 コントローラー内で使うと思いますので、
-SskLine.line_login_process(request,self,User)
+```SskLine.line_login_process(request,self,User)```  
 というような書き方になるかと思います。
 
 中で何をやっているかというと、
-・環境変数などちゃんと設定されているかの確認
-・CSRFトークンのチェック
-・トークンが合っていればアクセストークンの取得
-・アクセストークンが取得できたらプロフィールの取得
-・そのプロフィールのlineidがすでにusersテーブルに存在すれば表示名と画像のURLを上書き
-・そのプロフィールのlineidが存在しなければ新しく作成。
-・新規作成する際に一人目のユーザーであれば強制的に管理者権限にする
+- 環境変数などちゃんと設定されているかの確認
+- CSRFトークンのチェック
+- トークンが合っていればアクセストークンの取得
+- アクセストークンが取得できたらプロフィールの取得
+- そのプロフィールのlineidがすでにusersテーブルに存在すれば表示名と画像のURLを上書き
+- そのプロフィールのlineidが存在しなければ新しく作成。
+- 新規作成する際に一人目のユーザーであれば強制的に管理者権限にする
 という感じです。
 
-１個でもエラーがあればroot_pathに強制的に飛ばします。そのため
-if SskLine.line_login_process(request,self,User) == false then return end
+１個でもエラーがあればroot_pathに強制的に飛ばします。そのため  
+`if SskLine.line_login_process(request,self,User) == false then return end`  
 こんな１行を入れておけば良いです。
 
 
